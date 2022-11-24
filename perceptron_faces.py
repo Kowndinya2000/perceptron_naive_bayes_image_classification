@@ -73,9 +73,9 @@ if __name__ == "__main__":
 
     features = copy.deepcopy(training_data)
     max_iterations = 3
-    weights = [random.uniform(-1,1), [[random.uniform(-1,1) for _ in range(60)] for _ in range(70)]]
+    weights = [random.uniform(-1,1), [[random.uniform(-1,1) for _ in range(70)] for _ in range(70)]]
     
-    inos = [x for x in range(50*training_percent)]
+    inos = [x for x in range(451*training_percent//100)]
     while(max_iterations > 0):
         for label, ino in zip(training_y[:len(inos)], inos):
             update(label, ino)
