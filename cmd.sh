@@ -19,3 +19,25 @@ python3 .\perceptron_faces.py 70
 python3 .\perceptron_faces.py 80
 python3 .\perceptron_faces.py 90
 python3 .\perceptron_faces.py 100
+
+python3 .\naive_bayes_faces.py 10
+python3 .\naive_bayes_faces.py 20
+python3 .\naive_bayes_faces.py 30
+python3 .\naive_bayes_faces.py 40
+python3 .\naive_bayes_faces.py 50
+python3 .\naive_bayes_faces.py 60
+python3 .\naive_bayes_faces.py 70
+python3 .\naive_bayes_faces.py 80
+python3 .\naive_bayes_faces.py 90
+python3 .\naive_bayes_faces.py 100
+
+python3 .\naive_bayes_digits.py 10
+python3 .\naive_bayes_digits.py 20
+python3 .\naive_bayes_digits.py 30
+python3 .\naive_bayes_digits.py 40
+python3 .\naive_bayes_digits.py 50
+python3 .\naive_bayes_digits.py 60
+python3 .\naive_bayes_digits.py 70
+python3 .\naive_bayes_digits.py 80
+python3 .\naive_bayes_digits.py 90
+python3 .\naive_bayes_digits.py 100
