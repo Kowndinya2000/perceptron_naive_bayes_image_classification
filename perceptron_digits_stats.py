@@ -6,13 +6,11 @@
 '''
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // @author Kowndinya Boyalakuntla - <RUID 219002814> - <NetID kb1204>
-// @usage: python3 perceptron_digits.py p : p - percentage of training data used (as an integer) 
+// @usage: python3 perceptron_digits_stats.py  
 ///////////////////////////////////////////////////////////////////////////////////////////////
 '''
 import copy
 from util_digits import *
-import sys
-import statistics
 import numpy as np
 import time
 
@@ -72,69 +70,57 @@ def get_accuracy(dtype="test"):
     global validation_y
     global test_y
     accuracy = 0
-    predictions = []
     if dtype == "validation":
         for ino in range(len(validation_data)):
             predicted_label = predict_label(ino, dtype="validation")
-            predictions.append(predicted_label)
             if predicted_label == validation_y[ino]:
                 accuracy += 1
         accuracy = accuracy/len(validation_data)
         return accuracy
     for ino in range(len(test_data)):
         predicted_label = predict_label(ino)
-        predictions.append(predicted_label)
         if predicted_label == test_y[ino]:
             accuracy += 1
     accuracy = accuracy/len(test_data)
     return accuracy
 
 ## Main Function
-## Training, Test & Validation data generation
+## Training & Test data generation
 ## Feature Extraction - Each Pixel is a feature - Essentially the training_data is the feature matrix
 ## Training the classifier
 ## Prediction on the Test and Validation datasets 
-## Printing the corresponding accuracies
+## Printing the corresponding training time (sec) and prediction error (%) 
 if __name__ == "__main__":
-    
-    training_percent = int(sys.argv[1])
-    
-    print("\n//////////////**PERCEPTRON DIGITS**//////////////////")
-    print("// ⦿ training data used:", str(training_percent) + "%")
+    print("\n//////////////**STATS FOR PERCEPTRON DIGITS**//////////////////")
+    for training_percent in range(10,101,10):
+        print("////⦿ Using", str(training_percent) + "%"+" of training data (RUNNING 50 SIMULATIONS)////")
 
-    time_record = np.empty(50, dtype=float)
-    prediction_errors = np.empty(50, dtype=float)
-    
-    for iter in range(1,51):
-        print("/////////////////////////////")
-        print("// ⦿ Iteration:", iter)
-        start_time = time.time()
-        training_data, training_y = get_data()
-        
-        ## Feature Extraction
-        features = copy.deepcopy(training_data)
-        max_iterations = 3
-        weights = [[np.random.randn(1), np.random.randn(28,28)] for _ in range(10)]
-        inos = [x for x in range(50*training_percent)]
-        
-        ## Perceptron classifier's training happens here
-        while (max_iterations > 0):
-            for label, ino in zip(training_y[:len(inos)], inos):
-                update_weights(label, ino)
-            max_iterations -= 1
-        time_record[iter-1] = time.time()-start_time
-        print("// ➔ Training Time:", str(round(time_record[iter-1], 2))+"sec")
+        time_record = np.empty(50, dtype=float)
+        prediction_errors = np.empty(50, dtype=float)
 
-        # validation_data, validation_y = get_data(dtype="validation")
-        test_data, test_y = get_data(dtype="test")
-        # validation_accuracy = get_accuracy(dtype="validation")
-        # print("// ➔ Validation Accuracy:", str(round(validation_accuracy*100))+"%")
-        test_accuracy = get_accuracy()
-        prediction_errors[iter-1] = 1-test_accuracy
-        print("// ➔ Prediction Error:", str(round(prediction_errors[iter-1]*100, 2))+"%")
-    print("////////////////////////////////")
-    print("// ⦿ Average Training Time:", str(round(np.mean(time_record),2))+"sec")
-    print("// ⦿ Average Prediction Error:", str(round(100*np.mean(prediction_errors),2))+"%")
-    print("// ⦿ Standard Deviation:",np.std(prediction_errors))    
-    print("//////////////**END OF PERCEPTRON DIGITS**//////////////////")
+        for iter in range(1,51):
+            start_time = time.time()
+            training_data, training_y = get_data()
+
+            ## Feature Extraction
+            features = copy.deepcopy(training_data)
+            max_iterations = 3
+            weights = [[np.random.randn(1), np.random.randn(28,28)] for _ in range(10)]
+            inos = [x for x in range(50*training_percent)]
+
+            ## Perceptron classifier's training happens here
+            while (max_iterations > 0):
+                for label, ino in zip(training_y[:len(inos)], inos):
+                    update_weights(label, ino)
+                max_iterations -= 1
+
+            time_record[iter-1] = time.time()-start_time
+            test_data, test_y = get_data(dtype="test")
+            test_accuracy = get_accuracy()
+            prediction_errors[iter-1] = 1-test_accuracy
+        
+        print("// ➔ Average Training Time:", str(round(np.mean(time_record),2))+"sec")
+        print("// ➔ Average Prediction Error:", str(round(100*np.mean(prediction_errors),2))+"%")
+        print("// ➔ Standard Deviation:",np.std(prediction_errors))    
+    print("//////////////**END OF STATS FOR PERCEPTRON DIGITS**//////////////////")
     

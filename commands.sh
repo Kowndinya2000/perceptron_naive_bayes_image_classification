@@ -41,3 +41,14 @@ python3 .\naive_bayes_digits.py 70
 python3 .\naive_bayes_digits.py 80
 python3 .\naive_bayes_digits.py 90
 python3 .\naive_bayes_digits.py 100
+
+python3 .\random_forest_digits.py 10
+python3 .\random_forest_digits.py 20
+python3 .\random_forest_digits.py 30
+python3 .\random_forest_digits.py 40
+python3 .\random_forest_digits.py 50
+python3 .\random_forest_digits.py 60
+python3 .\random_forest_digits.py 70
+python3 .\random_forest_digits.py 80
+python3 .\random_forest_digits.py 90
+python3 .\random_forest_digits.py 100

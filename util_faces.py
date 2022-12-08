@@ -1,12 +1,13 @@
+import numpy as np
 def get_data(dtype="train"):
     fp = open("facedata/facedata"+dtype, "r")
     count = 0
-    data_point = [[0 for _ in range(70)] for _ in range(70)]
+    data_point = np.zeros((70,70), dtype=float)
     data = []
     for a in fp:
         count += 1
         if count == 1:
-            data_point = [[0 for _ in range(70)] for _ in range(70)]
+            data_point = np.zeros((70,70), dtype=float)
             line = a.replace("\n","")
             if "+" in line or "#" in line:
                 c  = 0
@@ -38,4 +39,4 @@ def get_data(dtype="train"):
     for a in fp:
         actual_y.append(int(a.replace("\n","")))
     fp.close()
-    return data, actual_y
+    return np.array(data), np.array(actual_y)
